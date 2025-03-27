@@ -38,7 +38,7 @@ const Statistics =({good,neutral,bad,total,average,positive})=>{
         <StatisticLine text={'bad'} value={bad}/>
         <StatisticLine text={'total'} value={total}/>
         <StatisticLine text={'average'} value={average}/>
-        <StatisticLine text={'positive'} value={positive}/>
+        <StatisticLine text={'positive'} value={positive} text2={'%'}/>
 
       </table>
     )
@@ -57,36 +57,36 @@ const App=()=> {
   const [average,setAverage] = useState(0)
   const [positive,setPositive] = useState(0)
 
+  const handleTotal=(averagePluss,positivePluss,totalPluss) => {
+    setTotal(totalPluss)
+    setAverage(averagePluss.toFixed(1))
+    setPositive(positivePluss.toFixed(1))
+    }
 
   const handleGood =()=>{
     const goodPluss = good + 1
     const totalPluss = total + 1
     const averagePluss = (goodPluss - bad)/totalPluss
-    const positivePluss = goodPluss /totalPluss
+    const positivePluss = (goodPluss / totalPluss) * 100
     setGood(goodPluss)
-    setTotal(totalPluss)
-    setAverage(averagePluss)
-    setPositive(positivePluss)
+    handleTotal(averagePluss,positivePluss,totalPluss)
   }
   const handleNeutral =()=>{
     const neutralPluss = neutral + 1
     const totalPluss = total + 1
     const averagePluss = (good - bad)/totalPluss
-    const positivePluss = good /totalPluss
+    const positivePluss = (good /totalPluss) * 100
     setNeutral(neutralPluss)
-    setTotal(totalPluss)
-    setAverage(averagePluss)
-    setPositive(positivePluss)
+    handleTotal(averagePluss,positivePluss,totalPluss)
   }
   const handleBad =()=>{
     const badPluss = bad + 1
     const totalPluss = total + 1
     const averagePluss = (good - badPluss)/totalPluss
-    const positivePluss = good /totalPluss
+    const positivePluss = (good /totalPluss) * 100
     setBad(badPluss)
-    setTotal(totalPluss)
-    setAverage(averagePluss)
-    setPositive(positivePluss)
+    handleTotal(averagePluss,positivePluss,totalPluss)
+
   }
   return (
     <>
